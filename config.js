@@ -7,7 +7,7 @@
    entre comillas ' '.
    ========================================================================== */
 
-const RADIO_CONFIG = {
+window.RADIO_CONFIG = {
 
   /* -----------------------------------------------------------------------
      1. STREAM DE AUDIO (Centova Cast)
@@ -45,17 +45,23 @@ const RADIO_CONFIG = {
     youtubeVideoId: '',     // ej: 'dQw4w9WgXcQ' (opcional, si no usas channelId)
 
     // Si usas Twitch: pon el nombre exacto del canal
-    twitchChannel: 'eternalbeatradiotv',      // https://www.twitch.tv/eternalbeatradiotv
+    // NOTA: no pude confirmar un canal de Twitch real para la radio, así que
+    // lo dejo vacío. Como 'provider' está en 'youtube', esto no afecta nada
+    // ahora. Si tienes canal de Twitch, escribe aquí el nombre exacto.
+    twitchChannel: '',      // ej: 'eternalbeatradiotv'
   },
 
   /* -----------------------------------------------------------------------
      3. CHAT EN VIVO (widget Chatango — gratis, sin backend)
      ----------------------------------------------------------------------- */
   chat: {
-    enabled: true,
+    // IMPORTANTE: pon 'true' solo cuando hayas creado tu grupo real en
+    // Chatango (ver instrucciones abajo). Mientras esté en 'false', el sitio
+    // mostrará un aviso en vez de intentar cargar un chat que no existe.
+    enabled: false,
     // Crea un grupo gratis en https://chatango.com/register (2 minutos)
-    // y pega aquí el ID de tu grupo.
-    chatangoGroupId: 'eternalbeatradiochile',
+    // y pega aquí el ID de tu grupo. Luego cambia 'enabled' a true arriba.
+    chatangoGroupId: '',
   },
 
   /* -----------------------------------------------------------------------
@@ -79,3 +85,4 @@ const RADIO_CONFIG = {
     country: 'Chile',
   },
 };
+
