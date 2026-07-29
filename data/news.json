@@ -1,0 +1,16 @@
+[
+  {
+    "title": "¡Bienvenidos a Eternal Beat Radio Chile!",
+    "date": "2026-07-29",
+    "summary": "Estrenamos nuestra nueva plataforma web con transmisión en vivo, chat, videochat y mucho más. ¡Gracias por acompañarnos!",
+    "image": "",
+    "link": ""
+  },
+  {
+    "title": "Ejemplo: noticia con link externo",
+    "date": "2026-07-20",
+    "summary": "Puedes usar este campo 'link' para redirigir a una nota publicada en otro sitio o red social.",
+    "image": "",
+    "link": "https://www.instagram.com/"
+  }
+]

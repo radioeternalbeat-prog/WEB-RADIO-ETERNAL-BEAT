@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Eternal Beat Radio Chile | En Vivo</title>
+<meta name="description" content="Eternal Beat Radio Chile - Escucha nuestra transmisión en vivo, videochat, noticias y mucho más.">
+<meta name="theme-color" content="#FF8000">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <img src="assets/logo.png" alt="Eternal Beat Radio Chile" class="brand-logo" onerror="this.style.display='none'">
+      <div class="brand-text">
+        <span class="brand-name">ETERNAL BEAT<span class="accent">RADIO</span></span>
+        <span class="brand-tag">CHILE</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#top">Inicio</a>
+      <a href="#video">Video en Vivo</a>
+      <a href="#chat">Chat</a>
+      <a href="#historial">Historial</a>
+      <a href="#noticias">Noticias</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ TOP AD BANNER ============ -->
+<div class="ad-slot ad-top" id="ad-top">
+  <span class="ad-label">Espacio publicitario</span>
+  <img src="assets/ads/banner-top.jpg" alt="Publicidad" onerror="this.parentElement.classList.add('ad-empty')">
+</div>
+
+<!-- ============ HERO / PLAYER ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="live-badge"><span class="dot"></span> EN VIVO</div>
+    <h1 class="hero-title">ETERNAL BEAT <span>RADIO CHILE</span></h1>
+    <p class="hero-slogan" id="stationSlogan">El ritmo que nunca se apaga</p>
+
+    <div class="player-card">
+      <button class="play-btn" id="playBtn" aria-label="Reproducir / Pausar">
+        <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+
+      <div class="now-playing">
+        <span class="np-label">Sonando ahora</span>
+        <span class="np-title" id="npTitle">Cargando metadatos...</span>
+        <span class="np-sub" id="npListeners">-- oyentes conectados</span>
+      </div>
+
+      <div class="volume-wrap">
+        <svg viewBox="0 0 24 24" class="vol-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" id="volumeSlider" min="0" max="100" value="80">
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <button class="btn-cast" id="castHint" title="Usa el botón de transmitir de tu navegador o Chromecast para enviar esta pestaña a tu TV">
+        📺 Transmitir a Chromecast
+      </button>
+      <a href="#video" class="btn-outline">Ver transmisión en vivo</a>
+    </div>
+  </div>
+</section>
+
+<audio id="radioAudio" preload="none"></audio>
+
+<!-- ============ SIDE + CONTENT AD ============ -->
+<div class="ad-slot ad-strip" id="ad-strip">
+  <span class="ad-label">Espacio publicitario</span>
+  <img src="assets/ads/banner-strip.jpg" alt="Publicidad" onerror="this.parentElement.classList.add('ad-empty')">
+</div>
+
+<!-- ============ MAIN GRID: VIDEO + CHAT ============ -->
+<section class="split-section" id="video">
+  <div class="split-col video-col">
+    <h2 class="section-title"><span>01.</span> Transmisión en Vivo</h2>
+    <div class="video-frame" id="videoFrame">
+      <div class="video-placeholder" id="videoPlaceholder">
+        <p>📡 Aquí se mostrará la transmisión en vivo de YouTube o Twitch.</p>
+        <p class="hint">Configura el canal en <code>config.js</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="split-col chat-col" id="chat">
+    <h2 class="section-title"><span>02.</span> Chat en Vivo</h2>
+    <div class="chat-frame" id="chatFrame">
+      <div class="chat-placeholder" id="chatPlaceholder">
+        <p>💬 El chat en vivo aparecerá aquí.</p>
+        <p class="hint">Configura tu grupo de Chatango en <code>config.js</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIDE AD ============ -->
+<div class="ad-slot ad-strip" id="ad-strip-2">
+  <span class="ad-label">Espacio publicitario</span>
+  <img src="assets/ads/banner-strip-2.jpg" alt="Publicidad" onerror="this.parentElement.classList.add('ad-empty')">
+</div>
+
+<!-- ============ HISTORIAL DE CANCIONES ============ -->
+<section class="history-section" id="historial">
+  <h2 class="section-title"><span>03.</span> Historial de Canciones</h2>
+  <ul class="history-list" id="historyList">
+    <li class="history-empty">El historial aparecerá aquí una vez que se detecten canciones en el stream.</li>
+  </ul>
+</section>
+
+<!-- ============ NOTICIAS ============ -->
+<section class="news-section" id="noticias">
+  <h2 class="section-title"><span>04.</span> Noticias</h2>
+  <p class="news-hint">¿Quieres publicar una noticia? Edita el archivo <code>data/news.json</code>.</p>
+  <div class="news-grid" id="newsGrid">
+    <p class="news-empty">Cargando noticias...</p>
+  </div>
+</section>
+
+<!-- ============ BOTTOM AD ============ -->
+<div class="ad-slot ad-bottom" id="ad-bottom">
+  <span class="ad-label">Espacio publicitario</span>
+  <img src="assets/ads/banner-bottom.jpg" alt="Publicidad" onerror="this.parentElement.classList.add('ad-empty')">
+</div>
+
+<!-- ============ FOOTER / CONTACTO ============ -->
+<footer class="site-footer" id="contacto">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="assets/logo.png" alt="Eternal Beat Radio Chile" class="footer-logo" onerror="this.style.display='none'">
+      <h3>ETERNAL BEAT RADIO CHILE</h3>
+      <p>Transmitiendo música y energía las 24 horas, los 7 días de la semana, desde Chile para el mundo.</p>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-links" id="socialLinks"></div>
+      <p class="footer-email" id="footerEmail"></p>
+    </div>
+
+    <div class="footer-listen">
+      <h4>Escúchanos</h4>
+      <p>Dale play y disfruta la transmisión en vivo desde cualquier dispositivo: PC, celular o tu TV con Chromecast.</p>
+      <button class="btn-outline small" id="footerPlayBtn">▶ Escuchar en vivo</button>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Eternal Beat Radio Chile. Todos los derechos reservados.</p>
+    <p class="footer-credit">Diseño inspirado en los colores de McLaren F1.</p>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
