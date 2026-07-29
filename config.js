@@ -13,6 +13,8 @@ const RADIO_CONFIG = {
      1. STREAM DE AUDIO (Centova Cast)
      ----------------------------------------------------------------------- */
   // URL directa de tu stream (la que usas para escuchar la radio)
+  // NOTA: esta es una URL DE PRUEBA. Reemplázala por la URL real de tu
+  // stream de Centova Cast cuando esté lista para producción.
   streamUrl: 'https://topradio.us/proxy/eternalbeat/stream',
 
   // URL para obtener los METADATOS (canción/artista actual).
@@ -22,6 +24,9 @@ const RADIO_CONFIG = {
   //   - Formato Shoutcast: https://topradio.us/stats?sid=1  (o /7.html)
   // Déjalo tal como está si no estás seguro; el sitio funcionará igual,
   // solo no mostrará el nombre de la canción hasta que definas esta URL.
+  // NOTA (confirmado por el usuario): la URL de prueba actual NO expone
+  // metadatos todavía. El "now playing" mostrará "Conectando..." o quedará
+  // vacío hasta reemplazar esta URL por la del stream real con metadatos.
   metadataUrl: 'https://topradio.us/proxy/eternalbeat/stats?json=1',
 
   // Cada cuántos segundos se actualizan los metadatos / historial
@@ -36,11 +41,11 @@ const RADIO_CONFIG = {
 
     // Si usas YouTube: pon el ID del canal (recomendado, siempre muestra
     // el live actual) o el ID de un video en vivo específico.
-    youtubeChannelId: '',   // ej: 'UCxxxxxxxxxxxxxxxxxxxxxx'
+    youtubeChannelId: 'UCwrSb2vBHAPZ8kAwnxa5vSg',   // canal: @eternalbeatmedioscl
     youtubeVideoId: '',     // ej: 'dQw4w9WgXcQ' (opcional, si no usas channelId)
 
     // Si usas Twitch: pon el nombre exacto del canal
-    twitchChannel: '',      // ej: 'eternalbeatradio'
+    twitchChannel: 'eternalbeatradiotv',      // https://www.twitch.tv/eternalbeatradiotv
   },
 
   /* -----------------------------------------------------------------------
