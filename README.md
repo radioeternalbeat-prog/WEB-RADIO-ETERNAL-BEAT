@@ -2,34 +2,74 @@
 
 Sitio web oficial de **Eternal Beat Radio Chile** — "El ritmo que nunca se apaga".
 
-Diseño inspirado en los colores de McLaren F1 (papaya clásico + papaya/azul marino actual). Sitio 100% estático, responsive (PC, celular y Chromecast vía casting del navegador), listo para desplegar en **Netlify**.
+Diseño inspirado en los colores de McLaren F1 (papaya clásico + papaya/azul marino actual). Sitio 100% estático, responsive (PC, celular y Chromecast vía casting del navegador).
+
+**Sitio en vivo:** https://radioeternalbeat-prog.github.io/WEB-RADIO-ETERNAL-BEAT/
+**Panel de administración:** https://radioeternalbeat-prog.github.io/WEB-RADIO-ETERNAL-BEAT/admin/
+
+## 🎛️ Panel de administración (recomendado)
+
+Ya **no necesitas editar archivos a mano**. Entra al panel y cambia todo desde el navegador:
+
+| Pestaña | Qué puedes cambiar |
+|---|---|
+| **General** | Nombre de la radio, eslogan, país |
+| **Stream** | URL del stream, URL de metadatos, frecuencia de actualización (con botones de prueba) |
+| **Video** | Plataforma (YouTube/Twitch/ninguna) y datos del canal |
+| **Chat** | Activar/desactivar chat y el ID del grupo de Chatango |
+| **Redes** | Facebook, Instagram, TikTok, WhatsApp, YouTube, email |
+| **Fondo** | Subir nueva imagen de fondo y ajustar cuán oscura se ve |
+| **Publicidad** | Subir las 4 imágenes de banners publicitarios |
+| **Noticias** | Agregar, editar y eliminar noticias |
+
+Cuando guardas, el panel hace un commit en este repositorio y el sitio se vuelve a publicar automáticamente (tarda 1-2 minutos).
+
+### Cómo obtener tu token de acceso
+
+El panel necesita un token de GitHub para poder guardar los cambios:
+
+1. Entra a [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
+2. **Token name:** `Panel Radio`
+3. **Expiration:** 90 días (o lo que prefieras)
+4. **Repository access:** *Only select repositories* → selecciona `WEB-RADIO-ETERNAL-BEAT`
+5. **Permissions → Repository permissions → Contents:** *Read and write*
+6. Click en **Generate token** y copia el código
+7. Pégalo en el panel de administración
+
+> ⚠️ **Importante sobre seguridad:** el token se guarda únicamente en tu navegador (nunca se sube al sitio ni pasa por otro servidor). Quien tenga ese token puede modificar el sitio, así que no lo compartas ni lo uses en computadores públicos. Si crees que se filtró, ve a la configuración de tokens en GitHub y elimínalo — luego generas uno nuevo.
 
 ## 📁 Estructura del proyecto
 
 ```
-├── index.html          → Página principal (toda la estructura del sitio)
-├── config.js            ⭐ ARCHIVO PRINCIPAL DE CONFIGURACIÓN (edítalo tú mismo)
-├── manifest.json        → Configuración PWA (ícono, nombre, colores)
-├── netlify.toml         → Configuración de despliegue en Netlify
+├── index.html            → Página principal
+├── config.js             → Configuración de respaldo (si falla settings.json)
+├── manifest.json         → Configuración PWA
+├── netlify.toml          → Configuración de despliegue en Netlify
+├── robots.txt            → Oculta /admin/ de los buscadores
+├── admin/                ⭐ PANEL DE ADMINISTRACIÓN
+│   ├── index.html
+│   ├── admin.css
+│   └── admin.js
 ├── css/
-│   └── style.css        → Todos los estilos visuales
+│   └── style.css         → Estilos visuales
 ├── js/
-│   └── main.js           → Lógica: reproductor, metadatos, video, chat, noticias
+│   └── main.js           → Reproductor, metadatos, video, chat, noticias
 ├── data/
-│   └── news.json        ⭐ EDITA AQUÍ TUS NOTICIAS (sin tocar código)
+│   ├── settings.json     ⭐ Configuración del sitio (la edita el panel)
+│   └── news.json         ⭐ Noticias (las edita el panel)
 └── assets/
-    ├── logo.png          ⭐ SUBE AQUÍ TU LOGO
-    ├── favicon.png
-    └── ads/               ⭐ SUBE AQUÍ TUS BANNERS PUBLICITARIOS
+    ├── logo.png          → Logo de la radio
+    ├── favicon.png       → Ícono del navegador
+    ├── bg-hero.jpg       → Imagen de fondo del sitio
+    └── ads/              → Banners publicitarios
 ```
 
-## ✏️ Cómo hacer cambios (sin programar)
+## ✏️ Editar a mano (alternativa al panel)
 
-### 1. Cambiar el stream, video en vivo, chat o redes sociales
-Edita **`config.js`**. Cada campo tiene un comentario explicando qué poner.
+Si prefieres editar archivos directamente en GitHub:
 
-### 2. Publicar una noticia
-Edita **`data/news.json`** y agrega un bloque como este:
+- **Configuración:** `data/settings.json`
+- **Noticias:** `data/news.json`
 
 ```json
 {
@@ -43,44 +83,48 @@ Edita **`data/news.json`** y agrega un bloque como este:
 
 Puedes dejar `"image"` y `"link"` vacíos (`""`) si no aplican.
 
-### 3. Subir tu logo
-Sube un archivo llamado exactamente `logo.png` dentro de la carpeta `assets/`.
-
-### 4. Subir banners de publicidad
-Sube tus imágenes dentro de `assets/ads/` con los nombres indicados en `assets/ads/README.md`.
+- **Logo:** sube `logo.png` en `assets/`
+- **Fondo:** sube `bg-hero.jpg` en `assets/`
+- **Banners:** sube tus imágenes en `assets/ads/` con los nombres indicados en `assets/ads/README.md`
 
 ## 🎧 Sobre el stream (Centova Cast)
 
-El reproductor usa la URL configurada en `config.js` (`streamUrl`). Para mostrar el nombre de la canción actual ("Now Playing") y el historial, el sitio consulta la URL en `metadataUrl`.
+El reproductor usa la URL configurada en `streamUrl`. Para mostrar el nombre de la canción actual ("Sonando ahora") y el historial, el sitio consulta la URL de `metadataUrl`.
 
-Si el nombre de la canción no aparece, es porque el formato de respuesta de tu servidor Centova Cast es distinto al esperado. Revisa con tu proveedor de hosting cuál es la URL correcta de metadatos (usualmente algo como `/status-json.xsl` o `/stats?json=1`) y ajusta la función `parseMetadata()` en `js/main.js` si es necesario.
+Si el nombre de la canción no aparece:
+- Verifica la URL de metadatos con tu proveedor de hosting (usualmente `/status-json.xsl` o `/stats?json=1`)
+- Usa el botón **"Probar metadatos"** en el panel para diagnosticar
+- Si el formato de tu servidor es distinto, hay que ajustar la función `parseMetadata()` en `js/main.js`
+
+> Nota: algunos servidores bloquean el acceso desde el navegador (CORS). En ese caso los metadatos no se podrán leer aunque la URL sea correcta — hay que pedir al proveedor que habilite CORS.
 
 ## 💬 Chat en vivo
 
-Se usa **Chatango** (gratis, sin necesidad de servidor propio). Para activarlo:
-1. Crea una cuenta y un grupo en [chatango.com](https://chatango.com/register).
-2. Copia el ID de tu grupo en `config.js` → `chat.chatangoGroupId`.
+Se usa **Chatango** (gratis, sin servidor propio):
+1. Crea tu grupo en [chatango.com/creategroup](https://chatango.com/creategroup)
+2. En el panel → pestaña **Chat**, activa el chat y pega el ID del grupo
 
-## 📺 Video en vivo (YouTube / Twitch)
+## 📺 Video en vivo
 
-En `config.js`, en la sección `video`, define:
-- `provider: 'youtube'` o `'twitch'`
-- Los datos del canal correspondientes
+En el panel → pestaña **Video**:
+- **YouTube:** pon el ID del canal (recomendado, muestra el directo activo automáticamente) o el ID de un video específico
+- **Twitch:** pon el nombre exacto del canal
 
-## 🚀 Desplegar en Netlify
+> Si el canal no está transmitiendo en vivo, YouTube muestra "This video is unavailable" — es normal, aparecerá el directo cuando empiecen a transmitir.
 
-1. Entra a [app.netlify.com](https://app.netlify.com).
-2. "Add new site" → "Import an existing project" → conecta este repositorio de GitHub.
-3. Build command: (vacío) — Publish directory: `.`
-4. Deploy. ¡Listo!
+## 🚀 Despliegue
 
-Cada vez que hagas un cambio y lo subas a GitHub (`main`), Netlify actualizará el sitio automáticamente.
+Actualmente el sitio está publicado con **GitHub Pages** (Settings → Pages → rama `main`, carpeta `/ (root)`).
+
+También es compatible con **Netlify** (ya incluye `netlify.toml`): conecta el repositorio, deja el build command vacío y el publish directory en `.`
+
+En ambos casos, cada cambio subido a `main` republica el sitio automáticamente.
 
 ## 📱 Compatibilidad
 
 - ✅ PC / notebook (todos los navegadores modernos)
 - ✅ Celular (diseño responsive, menú adaptado)
-- ✅ Chromecast: usa el botón "Transmitir" de Google Chrome para enviar la pestaña del sitio a tu TV (el audio y video se transmiten junto con la pestaña).
+- ✅ Chromecast: usa el botón "Transmitir" de Google Chrome para enviar la pestaña del sitio a tu TV
 
 ---
 Hecho con 🧡 para Eternal Beat Radio Chile.

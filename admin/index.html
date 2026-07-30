@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de Administración | Eternal Beat Radio Chile</title>
+<link rel="icon" href="../assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ==================== PANTALLA DE ACCESO ==================== -->
+<section class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <img src="../assets/logo.png" alt="Eternal Beat Radio Chile" class="login-logo" onerror="this.style.display='none'">
+    <h1>PANEL DE <span class="accent">ADMINISTRACIÓN</span></h1>
+    <p class="login-sub">Eternal Beat Radio Chile</p>
+
+    <label for="tokenInput">Token de acceso de GitHub</label>
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="current-password">
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="rememberToken" checked>
+      <span>Recordar en este dispositivo</span>
+    </label>
+
+    <button class="btn-primary" id="loginBtn">ENTRAR</button>
+    <p class="login-status" id="loginStatus"></p>
+
+    <details class="login-help">
+      <summary>¿Cómo obtengo mi token?</summary>
+      <ol>
+        <li>Entra a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+        <li>En <strong>Token name</strong> escribe: <code>Panel Radio</code></li>
+        <li>En <strong>Expiration</strong> elige 90 días (o lo que prefieras)</li>
+        <li>En <strong>Repository access</strong> elige <strong>Only select repositories</strong> y selecciona <code>WEB-RADIO-ETERNAL-BEAT</code></li>
+        <li>En <strong>Permissions → Repository permissions → Contents</strong>, elige <strong>Read and write</strong></li>
+        <li>Click en <strong>Generate token</strong> y copia el código que aparece</li>
+        <li>Pégalo aquí arriba</li>
+      </ol>
+      <p class="warn">Guarda tu token en un lugar seguro y no lo compartas. Solo se guarda en este navegador, nunca se sube al sitio.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ==================== PANEL PRINCIPAL ==================== -->
+<div class="admin-wrap hidden" id="adminWrap">
+
+  <header class="admin-header">
+    <div class="admin-brand">
+      <img src="../assets/logo.png" alt="" onerror="this.style.display='none'">
+      <div>
+        <strong>PANEL DE ADMINISTRACIÓN</strong>
+        <span id="repoLabel">—</span>
+      </div>
+    </div>
+    <div class="admin-header-actions">
+      <a href="../index.html" target="_blank" rel="noopener" class="btn-ghost">Ver sitio</a>
+      <button class="btn-ghost" id="logoutBtn">Salir</button>
+    </div>
+  </header>
+
+  <nav class="admin-tabs" id="adminTabs">
+    <button class="tab active" data-tab="general">General</button>
+    <button class="tab" data-tab="stream">Stream</button>
+    <button class="tab" data-tab="video">Video</button>
+    <button class="tab" data-tab="chat">Chat</button>
+    <button class="tab" data-tab="social">Redes</button>
+    <button class="tab" data-tab="fondo">Fondo</button>
+    <button class="tab" data-tab="banners">Publicidad</button>
+    <button class="tab" data-tab="noticias">Noticias</button>
+  </nav>
+
+  <main class="admin-main">
+
+    <!-- ---------- GENERAL ---------- -->
+    <section class="panel active" id="panel-general">
+      <h2>Información general</h2>
+      <p class="panel-desc">Nombre y eslogan que se muestran en el sitio.</p>
+      <div class="field">
+        <label for="stationName">Nombre de la radio</label>
+        <input type="text" id="stationName" placeholder="Eternal Beat Radio Chile">
+      </div>
+      <div class="field">
+        <label for="stationSlogan">Eslogan</label>
+        <input type="text" id="stationSlogan" placeholder="El ritmo que nunca se apaga">
+      </div>
+      <div class="field">
+        <label for="stationCountry">País</label>
+        <input type="text" id="stationCountry" placeholder="Chile">
+      </div>
+      <button class="btn-primary" data-save="settings">GUARDAR CAMBIOS</button>
+    </section>
+
+    <!-- ---------- STREAM ---------- -->
+    <section class="panel" id="panel-stream">
+      <h2>Stream de audio</h2>
+      <p class="panel-desc">URL de tu stream de Centova Cast y de los metadatos (canción actual).</p>
+      <div class="field">
+        <label for="streamUrl">URL del stream</label>
+        <input type="text" id="streamUrl" placeholder="https://tuservidor.com/proxy/eternalbeat/stream">
+        <small>Es la dirección directa del audio. Debe empezar con <code>https://</code> para funcionar en el sitio publicado.</small>
+      </div>
+      <div class="field">
+        <label for="metadataUrl">URL de metadatos (opcional)</label>
+        <input type="text" id="metadataUrl" placeholder="https://tuservidor.com/status-json.xsl">
+        <small>Sirve para mostrar el nombre de la canción. Si no la tienes, déjala vacía y el reproductor seguirá funcionando.</small>
+      </div>
+      <div class="field">
+        <label for="metadataRefresh">Actualizar metadatos cada (segundos)</label>
+        <input type="number" id="metadataRefresh" min="5" max="120" placeholder="15">
+      </div>
+      <div class="test-row">
+        <button class="btn-ghost" id="testStreamBtn">Probar stream</button>
+        <button class="btn-ghost" id="testMetaBtn">Probar metadatos</button>
+        <span class="test-result" id="testResult"></span>
+      </div>
+      <button class="btn-primary" data-save="settings">GUARDAR CAMBIOS</button>
+    </section>
+
+    <!-- ---------- VIDEO ---------- -->
+    <section class="panel" id="panel-video">
+      <h2>Video en vivo</h2>
+      <p class="panel-desc">Elige de dónde viene la transmisión de video del sitio.</p>
+      <div class="field">
+        <label for="videoProvider">Plataforma</label>
+        <select id="videoProvider">
+          <option value="youtube">YouTube</option>
+          <option value="twitch">Twitch</option>
+          <option value="none">Ninguna (ocultar)</option>
+        </select>
+      </div>
+      <div class="field" data-provider="youtube">
+        <label for="ytChannelId">ID del canal de YouTube</label>
+        <input type="text" id="ytChannelId" placeholder="UCwrSb2vBHAPZ8kAwnxa5vSg">
+        <small>Recomendado: muestra automáticamente el directo que esté activo en tu canal.</small>
+      </div>
+      <div class="field" data-provider="youtube">
+        <label for="ytVideoId">o ID de un video específico</label>
+        <input type="text" id="ytVideoId" placeholder="dQw4w9WgXcQ">
+        <small>Úsalo solo si quieres fijar un video concreto en vez del directo del canal.</small>
+      </div>
+      <div class="field" data-provider="twitch">
+        <label for="twitchChannel">Nombre del canal de Twitch</label>
+        <input type="text" id="twitchChannel" placeholder="eternalbeatradio">
+      </div>
+      <button class="btn-primary" data-save="settings">GUARDAR CAMBIOS</button>
+    </section>
+
+    <!-- ---------- CHAT ---------- -->
+    <section class="panel" id="panel-chat">
+      <h2>Chat en vivo</h2>
+      <p class="panel-desc">El chat usa Chatango (gratis). Necesitas crear un grupo y pegar su ID aquí.</p>
+      <div class="field">
+        <label class="checkbox-row">
+          <input type="checkbox" id="chatEnabled">
+          <span>Activar el chat en el sitio</span>
+        </label>
+      </div>
+      <div class="field">
+        <label for="chatangoGroup">ID del grupo de Chatango</label>
+        <input type="text" id="chatangoGroup" placeholder="eternalbeatradiochile">
+        <small>Crea tu grupo gratis en <a href="https://chatango.com/creategroup" target="_blank" rel="noopener">chatango.com/creategroup</a> y pega aquí el nombre del grupo.</small>
+      </div>
+      <button class="btn-primary" data-save="settings">GUARDAR CAMBIOS</button>
+    </section>
+
+    <!-- ---------- REDES ---------- -->
+    <section class="panel" id="panel-social">
+      <h2>Redes sociales y contacto</h2>
+      <p class="panel-desc">Los enlaces vacíos simplemente no se muestran en el sitio.</p>
+      <div class="field">
+        <label for="socialFacebook">Facebook</label>
+        <input type="text" id="socialFacebook" placeholder="https://facebook.com/tupagina">
+      </div>
+      <div class="field">
+        <label for="socialInstagram">Instagram</label>
+        <input type="text" id="socialInstagram" placeholder="https://instagram.com/tucuenta">
+      </div>
+      <div class="field">
+        <label for="socialTiktok">TikTok</label>
+        <input type="text" id="socialTiktok" placeholder="https://tiktok.com/@tucuenta">
+      </div>
+      <div class="field">
+        <label for="socialWhatsapp">WhatsApp</label>
+        <input type="text" id="socialWhatsapp" placeholder="https://wa.me/56912345678">
+      </div>
+      <div class="field">
+        <label for="socialYoutube">YouTube</label>
+        <input type="text" id="socialYoutube" placeholder="https://youtube.com/@tucanal">
+      </div>
+      <div class="field">
+        <label for="socialEmail">Email de contacto</label>
+        <input type="text" id="socialEmail" placeholder="contacto@eternalbeatradio.cl">
+      </div>
+      <button class="btn-primary" data-save="settings">GUARDAR CAMBIOS</button>
+    </section>
+
+    <!-- ---------- FONDO ---------- -->
+    <section class="panel" id="panel-fondo">
+      <h2>Imagen de fondo</h2>
+      <p class="panel-desc">Cambia la imagen de fondo de todo el sitio y qué tan oscura se ve.</p>
+
+      <div class="preview-box">
+        <img id="bgPreview" src="../assets/bg-hero.jpg" alt="Fondo actual" onerror="this.style.display='none'">
+      </div>
+
+      <div class="field">
+        <label for="bgFile">Subir nueva imagen de fondo</label>
+        <input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp">
+        <small>Recomendado: JPG de buena calidad. Se guardará como <code>assets/bg-hero.jpg</code>.</small>
+      </div>
+
+      <div class="field">
+        <label for="bgOpacity">Oscurecimiento del fondo: <span id="bgOpacityVal">0.88</span></label>
+        <input type="range" id="bgOpacity" min="0" max="1" step="0.02" value="0.88">
+        <small>Más a la izquierda = fondo más claro y visible. Más a la derecha = fondo más oscuro (texto más legible).</small>
+      </div>
+
+      <button class="btn-primary" id="saveBgBtn">GUARDAR FONDO</button>
+    </section>
+
+    <!-- ---------- BANNERS ---------- -->
+    <section class="panel" id="panel-banners">
+      <h2>Banners publicitarios</h2>
+      <p class="panel-desc">Sube las imágenes de tus anuncios. Los espacios sin imagen muestran "Espacio disponible".</p>
+
+      <div class="banner-grid" id="bannerGrid">
+        <!-- generado por admin.js -->
+      </div>
+    </section>
+
+    <!-- ---------- NOTICIAS ---------- -->
+    <section class="panel" id="panel-noticias">
+      <h2>Noticias</h2>
+      <p class="panel-desc">Agrega, edita o elimina las noticias que aparecen en el sitio.</p>
+
+      <button class="btn-ghost add-news" id="addNewsBtn">+ Agregar noticia</button>
+      <div class="news-admin-list" id="newsAdminList">
+        <!-- generado por admin.js -->
+      </div>
+      <button class="btn-primary" id="saveNewsBtn">GUARDAR NOTICIAS</button>
+    </section>
+
+  </main>
+</div>
+
+<!-- Aviso flotante de estado -->
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

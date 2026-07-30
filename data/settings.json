@@ -1,0 +1,31 @@
+{
+  "streamUrl": "https://topradio.us/proxy/eternalbeat/stream",
+  "metadataUrl": "https://topradio.us/proxy/eternalbeat/stats?json=1",
+  "metadataRefreshSeconds": 15,
+  "video": {
+    "provider": "youtube",
+    "youtubeChannelId": "UCwrSb2vBHAPZ8kAwnxa5vSg",
+    "youtubeVideoId": "",
+    "twitchChannel": ""
+  },
+  "chat": {
+    "enabled": false,
+    "chatangoGroupId": ""
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "tiktok": "",
+    "whatsapp": "",
+    "youtube": "",
+    "email": "contacto@eternalbeatradio.cl"
+  },
+  "station": {
+    "name": "Eternal Beat Radio Chile",
+    "slogan": "El ritmo que nunca se apaga",
+    "country": "Chile"
+  },
+  "background": {
+    "overlayOpacity": 0.88
+  }
+}

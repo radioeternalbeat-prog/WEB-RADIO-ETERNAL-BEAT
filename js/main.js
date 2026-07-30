@@ -2,10 +2,28 @@
    ETERNAL BEAT RADIO CHILE — LÓGICA PRINCIPAL DEL SITIO
    ========================================================================== */
 
-(function () {
+(async function () {
   'use strict';
 
-  const CFG = window.RADIO_CONFIG || {};
+  /* ------------------------- CARGA DE CONFIGURACIÓN -------------------------
+     La configuración se lee desde data/settings.json (editable desde el panel
+     de administración en /admin/). Si ese archivo no existe o falla, se usa
+     config.js como respaldo para que el sitio nunca quede sin configuración. */
+
+  async function loadSettings() {
+    try {
+      const res = await fetch('data/settings.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      // Mezclamos con config.js por si settings.json no tiene todas las claves
+      return Object.assign({}, window.RADIO_CONFIG || {}, json);
+    } catch (err) {
+      console.warn('No se pudo cargar data/settings.json, usando config.js:', err.message);
+      return window.RADIO_CONFIG || {};
+    }
+  }
+
+  const CFG = await loadSettings();
   const audio = document.getElementById('radioAudio');
   const playBtn = document.getElementById('playBtn');
   const footerPlayBtn = document.getElementById('footerPlayBtn');
@@ -259,6 +277,20 @@
     document.title = `${station.name || 'Eternal Beat Radio Chile'} | En Vivo`;
   }
 
+  /* ------------------------- FONDO (imagen y oscurecimiento) ------------------------- */
+
+  function initBackground() {
+    const bg = CFG.background || {};
+    const root = document.documentElement;
+    if (bg.image) {
+      root.style.setProperty('--bg-image', `url('${bg.image}')`);
+    }
+    if (bg.overlayOpacity !== undefined && bg.overlayOpacity !== null) {
+      const val = Math.min(Math.max(Number(bg.overlayOpacity), 0), 1);
+      if (!Number.isNaN(val)) root.style.setProperty('--bg-overlay-opacity', String(val));
+    }
+  }
+
   function initMobileNav() {
     const toggle = document.getElementById('navToggle');
     const nav = document.getElementById('mainNav');
@@ -275,6 +307,7 @@
   /* ------------------------- INIT ------------------------- */
 
   document.getElementById('year').textContent = new Date().getFullYear();
+  initBackground();
   initStationInfo();
   initMobileNav();
   initVideo();
