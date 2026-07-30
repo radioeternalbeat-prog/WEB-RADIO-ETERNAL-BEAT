@@ -237,17 +237,18 @@
   function initSocial() {
     const s = CFG.social || {};
     const container = document.getElementById('socialLinks');
-    const icons = {
-      facebook: '📘', instagram: '📷', tiktok: '🎵', whatsapp: '💬', youtube: '▶️',
+    const labels = {
+      facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok',
+      whatsapp: 'WhatsApp', youtube: 'YouTube',
     };
     const links = Object.entries(s).filter(([key, val]) => key !== 'email' && val);
     if (links.length) {
       container.innerHTML = links.map(([key, val]) =>
-        `<a href="${escapeHtml(val)}" target="_blank" rel="noopener" title="${key}">${icons[key] || '🔗'}</a>`
+        `<a href="${escapeHtml(val)}" target="_blank" rel="noopener" class="social-link">${labels[key] || key}</a>`
       ).join('');
     }
     const emailEl = document.getElementById('footerEmail');
-    if (s.email) emailEl.textContent = `✉️ ${s.email}`;
+    if (s.email) emailEl.textContent = s.email;
   }
 
   /* ------------------------- INFO GENERAL / NAV MÓVIL ------------------------- */
