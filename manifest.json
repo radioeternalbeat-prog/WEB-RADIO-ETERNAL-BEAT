@@ -2,7 +2,7 @@
   "name": "Eternal Beat Radio Chile",
   "short_name": "Eternal Beat",
   "description": "Radio online Eternal Beat Radio Chile - Escúchanos en vivo",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0B0B0B",
   "theme_color": "#FF8000",
