@@ -58,10 +58,10 @@ body::after {
   z-index: -1;
   background-color: #0b0b0b;
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(255,128,0,0.16), transparent 34%),
-    radial-gradient(circle at 88% 85%, rgba(10,31,61,0.55), transparent 44%),
-    linear-gradient(180deg, rgba(11,11,11,0.86) 0%, rgba(11,11,11,0.93) 40%, rgba(11,11,11,0.97) 100%);
-  opacity: 0.94;
+    radial-gradient(circle at 12% 8%, rgba(255,128,0,0.14), transparent 34%),
+    radial-gradient(circle at 88% 85%, rgba(10,31,61,0.45), transparent 44%),
+    linear-gradient(180deg, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.68) 40%, rgba(11,11,11,0.8) 100%);
+  opacity: 0.88;
 }
 
 img { max-width: 100%; display: block; }
